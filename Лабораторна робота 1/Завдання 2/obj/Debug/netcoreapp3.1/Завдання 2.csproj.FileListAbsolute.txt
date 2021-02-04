@@ -1,0 +1,13 @@
+D:\oop6 2\Лабораторна робота 1\Завдання 2\bin\Debug\netcoreapp3.1\Завдання 2.exe
+D:\oop6 2\Лабораторна робота 1\Завдання 2\bin\Debug\netcoreapp3.1\Завдання 2.deps.json
+D:\oop6 2\Лабораторна робота 1\Завдання 2\bin\Debug\netcoreapp3.1\Завдання 2.runtimeconfig.json
+D:\oop6 2\Лабораторна робота 1\Завдання 2\bin\Debug\netcoreapp3.1\Завдання 2.runtimeconfig.dev.json
+D:\oop6 2\Лабораторна робота 1\Завдання 2\bin\Debug\netcoreapp3.1\Завдання 2.dll
+D:\oop6 2\Лабораторна робота 1\Завдання 2\bin\Debug\netcoreapp3.1\Завдання 2.pdb
+D:\oop6 2\Лабораторна робота 1\Завдання 2\obj\Debug\netcoreapp3.1\Завдання 2.csprojAssemblyReference.cache
+D:\oop6 2\Лабораторна робота 1\Завдання 2\obj\Debug\netcoreapp3.1\Завдання 2.AssemblyInfoInputs.cache
+D:\oop6 2\Лабораторна робота 1\Завдання 2\obj\Debug\netcoreapp3.1\Завдання 2.AssemblyInfo.cs
+D:\oop6 2\Лабораторна робота 1\Завдання 2\obj\Debug\netcoreapp3.1\Завдання 2.csproj.CoreCompileInputs.cache
+D:\oop6 2\Лабораторна робота 1\Завдання 2\obj\Debug\netcoreapp3.1\Завдання 2.dll
+D:\oop6 2\Лабораторна робота 1\Завдання 2\obj\Debug\netcoreapp3.1\Завдання 2.pdb
+D:\oop6 2\Лабораторна робота 1\Завдання 2\obj\Debug\netcoreapp3.1\Завдання 2.genruntimeconfig.cache
