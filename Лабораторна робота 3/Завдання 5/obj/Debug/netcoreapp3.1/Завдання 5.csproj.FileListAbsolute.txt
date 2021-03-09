@@ -1,0 +1,13 @@
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\bin\Debug\netcoreapp3.1\Завдання 5.exe
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\bin\Debug\netcoreapp3.1\Завдання 5.deps.json
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\bin\Debug\netcoreapp3.1\Завдання 5.runtimeconfig.json
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\bin\Debug\netcoreapp3.1\Завдання 5.runtimeconfig.dev.json
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\bin\Debug\netcoreapp3.1\Завдання 5.dll
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\bin\Debug\netcoreapp3.1\Завдання 5.pdb
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\obj\Debug\netcoreapp3.1\Завдання 5.csprojAssemblyReference.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\obj\Debug\netcoreapp3.1\Завдання 5.AssemblyInfoInputs.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\obj\Debug\netcoreapp3.1\Завдання 5.AssemblyInfo.cs
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\obj\Debug\netcoreapp3.1\Завдання 5.csproj.CoreCompileInputs.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\obj\Debug\netcoreapp3.1\Завдання 5.dll
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\obj\Debug\netcoreapp3.1\Завдання 5.pdb
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 3\Завдання 5\obj\Debug\netcoreapp3.1\Завдання 5.genruntimeconfig.cache
