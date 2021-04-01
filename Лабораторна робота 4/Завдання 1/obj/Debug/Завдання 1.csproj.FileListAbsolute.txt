@@ -1,0 +1,21 @@
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\bin\Debug\Завдання 1.exe.config
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\bin\Debug\Завдання 1.exe
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\bin\Debug\Завдання 1.pdb
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\bin\Debug\OxyPlot.dll
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\bin\Debug\OxyPlot.Wpf.dll
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\bin\Debug\OxyPlot.xml
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\bin\Debug\OxyPlot.Wpf.xml
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1.csprojAssemblyReference.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\MainWindow.g.cs
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\App.g.cs
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1_MarkupCompile.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1_MarkupCompile.lref
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\MainWindow.baml
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1.g.resources
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання_1.Properties.Resources.resources
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1.csproj.GenerateResource.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1.csproj.CoreCompileInputs.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1.csproj.CopyComplete
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1.exe
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\Завдання 1.pdb
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 1\obj\Debug\GeneratedInternalTypeHelper.g.cs
