@@ -12,3 +12,4 @@ D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання
 D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 5\obj\Debug\Завдання 5.csproj.CoreCompileInputs.cache
 D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 5\obj\Debug\Завдання 5.exe
 D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 5\obj\Debug\Завдання 5.pdb
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 5\obj\Debug\Завдання 5.csprojAssemblyReference.cache

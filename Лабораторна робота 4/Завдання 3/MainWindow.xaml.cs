@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -107,10 +108,18 @@ namespace Завдання_3
             }
         }
 
+
+        private static readonly ConcurrentDictionary<string, object> _locks = new ConcurrentDictionary<string, object>();
         private void Results()
         {
-            mutexObj.WaitOne();
-            try
+            object obj;
+            while (!_locks.TryGetValue(@"D:\Fibonachi.txt", out obj))
+            {
+                obj = new object();
+                if (_locks.TryAdd(@"D:\Fibonachi.txt", obj))
+                    break;
+            }
+            lock (obj)
             {
                 using (StreamReader fib = new StreamReader(@"D:\Fibonachi.txt"))
                 {
@@ -124,7 +133,6 @@ namespace Завдання_3
 
                     txtFibonachi.Text += "Количество чисел = " + count;
                 }
-
                 using (StreamReader sim = new StreamReader(@"D:\Simple.txt"))
                 {
                     int count = 0;
@@ -138,12 +146,8 @@ namespace Завдання_3
                     txtSimple.Text += "Количество чисел = " + count;
                 }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
 
-            mutexObj.ReleaseMutex();
+            
         }
     }
 }

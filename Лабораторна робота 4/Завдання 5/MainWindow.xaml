@@ -19,9 +19,9 @@
                 Name="cmdStart" Click="CmdStart_OnClick">Начать сортировку</Button>
         <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="0" Grid.Column="0" Margin="5">
             <TextBlock Margin="10" FontSize="18">Ваш рандомный массив:</TextBlock>
-            <TextBlock FontSize="16" Name="lblArray" Text="{Binding Array, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock FontSize="16" Name="lblArray" Text="{Binding Array}"/>
         </StackPanel>
-        <TextBlock Margin="10" Grid.Row="1" Grid.Column="0" FontSize="17" Text="По возрастанию" Name="lblUp"/>
-        <TextBlock Margin="10" Grid.Row="1" Grid.Column="1" FontSize="17" Text="По убыванию" Name="lblDown"/>
+        <TextBlock Margin="10" Grid.Row="1" Grid.Column="0" FontSize="17" Text="{Binding ArrayUp, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="lblUp"/>
+        <TextBlock Margin="10" Grid.Row="1" Grid.Column="1" FontSize="17" Text="{Binding ArrayDown, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Name="lblDown"/>
     </Grid>
 </Window>
