@@ -1,0 +1,27 @@
+﻿<Window x:Class="Завдання_8.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Завдання_8"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center">
+            <TextBlock Margin="10" FontSize="18">Введите ваш диапазон</TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="16">Начало</TextBlock>
+                <TextBox Margin="5 0 0 0" Width="50" Name="txtStart"/>
+                <TextBlock FontSize="16" Margin="5 0 0 0">Конец</TextBlock>
+                <TextBox Margin="5 0 0 0" Width="50" Name="txtStop"/>
+            </StackPanel>
+            <Button Name="cmdFind" Margin="0 20 0 0" Click="CmdFind_OnClick">Начать поиск</Button>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Margin="15" FontSize="18" Name="tbSimple" TextWrapping="Wrap" 
+                   Text="{Binding SimpleNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+    </Grid>
+</Window>

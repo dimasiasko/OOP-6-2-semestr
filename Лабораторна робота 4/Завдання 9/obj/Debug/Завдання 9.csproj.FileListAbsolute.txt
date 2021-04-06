@@ -1,0 +1,15 @@
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\bin\Debug\Завдання 9.exe.config
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\bin\Debug\Завдання 9.exe
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\bin\Debug\Завдання 9.pdb
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9.csprojAssemblyReference.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\MainWindow.g.cs
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\App.g.cs
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9_MarkupCompile.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9_MarkupCompile.lref
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\MainWindow.baml
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9.g.resources
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання_9.Properties.Resources.resources
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9.csproj.GenerateResource.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9.csproj.CoreCompileInputs.cache
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9.exe
+D:\oop6 2\OOP-6-2-semestr\Лабораторна робота 4\Завдання 9\obj\Debug\Завдання 9.pdb
