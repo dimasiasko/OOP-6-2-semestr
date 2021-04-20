@@ -24,10 +24,10 @@
 
     <Grid Background="{x:Null}">
         <materialDesign:Card Name="cardUI" Margin="10" UniformCornerRadius="20" Background="{x:Null}" MouseDown="UIElement_OnMouseDown">
-            <StackPanel>
+            <StackPanel >
                 <StackPanel.Background>
                     <LinearGradientBrush StartPoint="0.25,0" EndPoint="0.5,1">
-                        <GradientStop Color="#1B1B1B" Offset="0.2" />
+                        <GradientStop Color="#1B1B1B" Offset="0.2"/>
                         <GradientStop Color="#323232" Offset="0" />
                     </LinearGradientBrush>
                 </StackPanel.Background>
@@ -137,7 +137,7 @@
                                       Foreground="#1B1B1B" Background="#FFE7D0"
                                       IsChecked="{Binding IsNextRandom}" ToolTip="Turn On To Mix Tracks"  HorizontalAlignment="Left" Margin="20,-30,10,0">
                             <StackPanel>
-                                <materialDesign:PackIcon Kind="ShuffleDisabled" Width="20" Height="20"/>
+                                <materialDesign:PackIcon Kind="ShuffleVariant" Width="20" Height="20"/>
                             </StackPanel>
                         </ToggleButton>
                         <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" Width="40" Height="40" BorderBrush="#1B1B1B" 
@@ -152,7 +152,7 @@
                     
                     <Button Style="{StaticResource cmdMusicButton}" 
                             ToolTip="Delete All Tracks" HorizontalAlignment="Right" 
-                            Margin="0,0,20,20" Command="{Binding DeleteAllTracksCommand}">
+                            Margin="0,0,20,20" Command="{Binding DeleteAllSongsCommand}">
                         <StackPanel>
                             <materialDesign:PackIcon Kind="DeleteOff" Width="20" Height="20" />
                         </StackPanel>

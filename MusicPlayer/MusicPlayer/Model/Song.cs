@@ -4,8 +4,9 @@ using MusicPlayer.Annotations;
 
 namespace MusicPlayer.Model
 {
-    public class Song : INotifyPropertyChanged
-    {
+    // модель програми
+    public class Song : INotifyPropertyChanged //Успадковування від інтерфейсу INotifyPropertyChanged та реалізація його
+    { // поля та властивості імені та шляху
         private string _songName;
         private string _pathToSong;
 
@@ -20,7 +21,8 @@ namespace MusicPlayer.Model
                 }
 
                 _songName = value;
-                OnPropertyChanged(nameof(SongName));
+                // означає що система буде оновлювати всі прив'язки як тільки зміняться дані які повертаються
+                OnPropertyChanged(nameof(SongName)); 
             }
         }
 
@@ -45,6 +47,7 @@ namespace MusicPlayer.Model
             SongName = name;
         }
 
+        // реалізація інтерфейсу
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 namespace MusicPlayer
 {
+    // успадковування та реалізація інтерфейсу ICommand - всіх його полів та методів
     public class SongCommand : ICommand
     {
         private Action<object> execute;

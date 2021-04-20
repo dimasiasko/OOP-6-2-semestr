@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -15,8 +16,11 @@ using MusicPlayer.Model;
 
 namespace MusicPlayer.ViewModel
 {
+    // ViewModel програми
+    //Успадковування від інтерфейсу INotifyPropertyChanged та реалізація його
     public class SongViewModel : INotifyPropertyChanged
     {
+        // створення приватних полів
         private ObservableCollection<Song> _library;
         private Song _selectedSong;
 
@@ -32,6 +36,7 @@ namespace MusicPlayer.ViewModel
         private MediaPlayer player = new MediaPlayer();
         private DispatcherTimer timer;
 
+        // створення публічних властивостей для їх прив'язки на основі приватних полів
         public ObservableCollection<Song> Library
         {
             get { return _library; }
@@ -161,6 +166,9 @@ namespace MusicPlayer.ViewModel
             }
         }
 
+       
+
+        // створення властивостей типу ICommand
         public ICommand ShutdownCurrentCommand { get; set; }
         public ICommand ChooseSongCommand { get; set; }
         public ICommand PlayPauseSelectedCommand { get; set; }
@@ -169,20 +177,20 @@ namespace MusicPlayer.ViewModel
         public ICommand ChangeSongPositionMdCommand { get; set; }
         public ICommand ChangeSongPositionMuCommand { get; set; }
         public ICommand StopCurrentCommand { get; set; }
-        public ICommand DeleteAllTracksCommand { get; set; }
+        public ICommand DeleteAllSongsCommand { get; set; }
         public ICommand PlayPreviousCommand { get; set; }
         public ICommand PlayNextCommand { get; set; }
         public ICommand SaveLibraryCommand { get; set; }
 
-        private enum PlayerState
+        private enum PlayerState // перечислення станів програвання
         {
             Playing, Stopped, Paused
         }
 
         private PlayerState _playerState;
 
-        private void ConstructCommands()
-        {
+        private void ConstructCommands() // метод для конструювання команд, прив'язки до методів
+        { // UpCast приведення до інтерфейсу ICommand
             ShutdownCurrentCommand = new SongCommand(ShutdownCurrent, CanShutdownCurrent);
             ChooseSongCommand = new SongCommand(ChooseSong, CanChooseSong);
             PlayPauseSelectedCommand = new SongCommand(PlayPauseSelected, CanPlayPauseSelected);
@@ -191,53 +199,71 @@ namespace MusicPlayer.ViewModel
             ChangeSongPositionMdCommand = new SongCommand(ChangeSongPositionMd, CanChangeSongPositionMd);
             ChangeSongPositionMuCommand = new SongCommand(ChangeSongPositionMu, CanChangeSongPositionMu);
             StopCurrentCommand = new SongCommand(StopCurrent, CanStopCurrent);
-            DeleteAllTracksCommand = new SongCommand(DeleteAllTracks, CanDeleteAllTracks);
+            DeleteAllSongsCommand = new SongCommand(DeleteAllSongs, CanDeleteAllSongs);
             PlayPreviousCommand = new SongCommand(PlayPrevious, CanPlayPrevious);
             PlayNextCommand = new SongCommand(PlayNext, CanPlayNext);
             SaveLibraryCommand = new SongCommand(SaveLibrary, CanSaveLibrary);
-        }
+        } // методи Can... визначають умову чи може бути виконанан команда
 
        
-        public SongViewModel()
+        public SongViewModel() // конструктор, визначеємо стандартні значення
         {
             ConstructCommands();
             _playerState = PlayerState.Stopped;
             IconKindButton = PackIconKind.Play;
 
-            SearchLibrary();
+            SearchLibrary(); // пошук збереженого плейлисту
             
 
-            timer = new DispatcherTimer();
+            timer = new DispatcherTimer(); // таймер для оновлення
             timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_Tick;
+            timer.Tick += timer_Tick; // прив'язка методу який спрацьовуватиме кожну секунду
 
-            Volume = 1;
+            Volume = 1; // звук за замовчуванням 1
         }
 
 
-        private void SearchLibrary()
+        private void SearchLibrary() // пошук при запуску програми збереженого плейлисту
         {
             string[] libraryPath = Directory.GetFiles(Environment.CurrentDirectory, "*.songlibrary");
             
             if (libraryPath.Length > 0)
                 Library = new PathesLoader().LoadPathes(libraryPath[0]);
             else
-                Library = new ObservableCollection<Song>();
+                Library = new ObservableCollection<Song>(); // якщо немає збереженого плейлисту - створити новий
 
         }
-        private void ShutdownCurrent(object obj)
+        // методи команди закриття програми
+        private void ShutdownCurrent(object obj) => Application.Current.Shutdown();
+        private bool CanShutdownCurrent(object arg) => true;
+
+        public enum FormatFile
         {
-            Application.Current.Shutdown();
-        }
-        private bool CanShutdownCurrent(object arg)
-        {
-            return true;
+            Unknown,
+            MP3,
+            WAV,
+            WMA,
+            OGG
         }
 
+        private readonly Dictionary<string, FormatFile> _formatFiles = new Dictionary<string, FormatFile>
+        {
+            {"mp3", FormatFile.MP3},
+            {"wav", FormatFile.WAV},
+            {"wma", FormatFile.WMA},
+            {"ogg", FormatFile.OGG}
+        };
+        public FormatFile GetFormatFile(string extension) => 
+            _formatFiles.TryGetValue(extension.Trim('.').ToLower(), out FormatFile category) ? category : FormatFile.Unknown;
+
+
+
+        // метод вибору файлів при натисканні на кнопку вибору файлу
         private void ChooseSong(object obj)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
+            // фільтр та початкова директорія вибору
             openFileDialog.InitialDirectory = "c:\\"; 
             openFileDialog.Filter = "All Supported Audio (*.mp3..) | *.mp3; *.wav; *.wma; *.ogg;  | All files (*.*) | *.*";                  
 
@@ -245,23 +271,23 @@ namespace MusicPlayer.ViewModel
             
             openFileDialog.Multiselect = true;
 
-            if ((bool)openFileDialog.ShowDialog())
+            if ((bool)openFileDialog.ShowDialog()) // перевірка результату вибору у вікні
             {
                 string[] songName = openFileDialog.FileNames;
                 for (int i = 0; i < songName.Length; i++)
                 {
-                    switch (System.IO.Path.GetExtension(songName[i])) 
+                    switch (GetFormatFile(Path.GetExtension(songName[i]))) // перевірка формату вибраних файлів
                     {
-                        case ".mp3":
-                        case ".wav":
-                        case ".wma":
-                        case ".ogg":
+                        case FormatFile.MP3:
+                        case FormatFile.WAV:
+                        case FormatFile.WMA:
+                        case FormatFile.OGG:
                             Song song = new Song(Path.GetFileNameWithoutExtension(songName[i]), songName[i]);
-                            Library.Add(song);
+                            Library.Add(song); // додавання об'єктів Song у колекцію (плейлист)
                             break;
-                        default:
+                        case FormatFile.Unknown:
                             MessageBox.Show($"File {songName[i]} is not in the correct format!");
-                            break;
+                            break; // при невірному форматі - повідомлення
                     }
                 }
             }
@@ -269,11 +295,9 @@ namespace MusicPlayer.ViewModel
                 MessageBox.Show("Choose songs for play!");
         }
         
-        private bool CanChooseSong(object arg)
-        {
-            return true;
-        }
+        private bool CanChooseSong(object arg) => true;
 
+        // 3 методи паузи та відновлення та стоп програвання (оновлення прив'язок) для зменшення повтору коду
         private void PausePlayer()
         {
             player.Pause();
@@ -287,7 +311,6 @@ namespace MusicPlayer.ViewModel
             _playerState = PlayerState.Playing;
             IconKindButton = PackIconKind.Pause;
         }
-
         private void StopPlayer()
         {
             player.Stop();
@@ -297,6 +320,7 @@ namespace MusicPlayer.ViewModel
             NowPlayingPositionString = player.GetNowPositionString();
         }
 
+        // метод визначення команди кнопки Play\Pause
         private void PlayPauseSelected(object obj)
         {
             if (_playerState == PlayerState.Playing)
@@ -307,39 +331,53 @@ namespace MusicPlayer.ViewModel
                 PlayAudio(obj);
         }
 
+        // основний метод програвання аудіо через об'єкт класу MediaPlayer
         private void PlayAudio(object obj)
         {
-            player.Close();
-            if (SelectedSong != null)
+            player.Close(); // при відкритому потоці програвання - закрити (зменшення витрат пам'яті)
+            if (SelectedSong != null) // перевірка чи вибраний файл у ListBox
             {
-                player.Open(new Uri(SelectedSong.PathToSong, UriKind.RelativeOrAbsolute));
-                player.Play();
-                _playerState = PlayerState.Playing;
-                IconKindButton = PackIconKind.Pause;
-                timer.Start();
+                if (!File.Exists(SelectedSong.PathToSong))
+                { // перевірка чи існує файл за заданим шляхом
+                    MessageBox.Show($"File {SelectedSong.SongName} doesn't exist at this path");
+                    Library.Remove(SelectedSong); // видалення файлу зі списку
+                }
+                else
+                {
+                    player.Open(new Uri(SelectedSong.PathToSong, UriKind.RelativeOrAbsolute));
+                    player.Play(); // відкрити файл за заданим шляхом та відтворити його
+                    _playerState = PlayerState.Playing;
+                    IconKindButton = PackIconKind.Pause;
+                    timer.Start(); // запустити таймер, кожну секунду якого оновлюється позиція відтворення та його дані
+                }
             }
             else
                 return;
         }
+
+        // метод кожного тіку таймера який оновлює всю інформацію кожну секунду яка  до цього прив'язана 
         private void timer_Tick(object sender, EventArgs e)
         {
             SelectedSongLength = player.GetSongPosition();
             SelectedSongLengthString = player.GetSongPositionString();
-
+            // зміна даних через прив'язки
             if (_playerState == PlayerState.Playing)
             {
                 NowPlayingPosition = player.GetNowPosition();
                 NowPlayingPositionString = player.GetNowPositionString();
             }
 
-            if (NowPlayingPosition == SelectedSongLength)
+            // відтворення наступного файлу при завершенні першого
+            if (NowPlayingPosition >= (SelectedSongLength - 1))
             {
-                if (IsRepeat)
-                    player.Repeat();
-                else
-                    PlayNext(sender);
+                if (NowPlayingPosition != SelectedSongLength)
+                {
+                    if (IsRepeat) // якщо увімкнений повтор - заново
+                        player.Repeat();
+                    else
+                        PlayNext(sender);
+                }
             }
-
         }
         private bool CanPlayAudio(object arg)
         {
@@ -358,20 +396,17 @@ namespace MusicPlayer.ViewModel
             return false;
         }
 
+        // метод зміни гучності звуку
         private void ChangeVolumePosition(object obj)
         {
             if (player.HasAudio)
                 player.Volume = Volume;
         }
-        private bool CanChangeVolumePosition(object arg)
-        {
-            return true;
-        }
+        private bool CanChangeVolumePosition(object arg) => true;
 
-        private void ChangeSongPositionMd(object obj)
-        {
-            PausePlayer();
-        }
+        // методи змінення Slider - перемотки аудіо файлу
+        // прив'язка до Slider
+        private void ChangeSongPositionMd(object obj) => PausePlayer(); // при натисканні - стоп
 
         private bool CanChangeSongPositionMd(object arg)
         {
@@ -381,7 +416,7 @@ namespace MusicPlayer.ViewModel
                 return false;
         }
 
-        private void ChangeSongPositionMu(object obj)
+        private void ChangeSongPositionMu(object obj) // при відпусканні - зміна і відновлення відтворення
         {
             player.Position = TimeSpan.FromSeconds(NowPlayingPosition);
             ResumePlayer();
@@ -395,10 +430,8 @@ namespace MusicPlayer.ViewModel
             return false;
         }
 
-        private void StopCurrent(object obj)
-        {
-            StopPlayer();
-        }
+        // стоп - прив'язка до кнопки Stop
+        private void StopCurrent(object obj) => StopPlayer();
 
         private bool CanStopCurrent(object arg)
         {
@@ -407,6 +440,7 @@ namespace MusicPlayer.ViewModel
 
             return false;
         }
+        // відтворення наступного (прив'язка до кнопки Play Next)
         private void PlayNext(object obj)
         {
             if (IsNextRandom)
@@ -422,11 +456,11 @@ namespace MusicPlayer.ViewModel
 
             return false;
         }
-
+        // відтворення попереднього файлу (прив'язка до кнопки Play Previous)
         private void PlayPrevious(object obj)
         {
             if (NowPlayingPosition >= 2)
-                player.Repeat();
+                player.Repeat(); // якщо файл відтворюється більше 2 секунд - на початок
             else
                 SelectedSong = Library.SelectPrevious(SelectedSong);
         }
@@ -439,30 +473,31 @@ namespace MusicPlayer.ViewModel
             return false;
         }
 
+        // метод команди збереження плейлисту - прив'язка до кнопки Save Library
         private void SaveLibrary(object obj)
         {
             PathesSaver pathesSaver = new PathesSaver();
-            pathesSaver.SavePathes(Library, Path.Combine(Environment.CurrentDirectory, "songs.songlibrary"));
+            pathesSaver.SavePathes(Library, Path.Combine(Environment.CurrentDirectory, "songs.songlibrary")); // запис у файл
 
             MessageBox.Show("Your songs was saved successfully");
         }
 
-        private bool CanSaveLibrary(object arg)
-        {
-            return true;
-        }
+        private bool CanSaveLibrary(object arg) => true;
 
-
-        private void DeleteAllTracks(object obj)
+        // метод команди очищення плейлисту
+        private void DeleteAllSongs(object obj)
         {
             SystemSounds.Exclamation.Play();
             var result = MessageBox.Show("If you turn 'Yes', you will delete ALL tracks",
-                "Are you really want to delete ALL tracks?", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                "Are you really want to delete ALL tracks?", MessageBoxButton.YesNo,
+                MessageBoxImage.Exclamation);
 
+            // запит підтвердження
             if (result == MessageBoxResult.Yes)
             {
+                player.Stop();
+                player.Close(); // видалення та закриття плеєру при підтвердженні
                 Library.Clear();
-                player.Close();
                 IconKindButton = PackIconKind.Play;
                 MessageBox.Show("Songs was successfully deleted");
             }
@@ -470,7 +505,7 @@ namespace MusicPlayer.ViewModel
                 return;
         }
 
-        private bool CanDeleteAllTracks(object arg)
+        private bool CanDeleteAllSongs(object arg)
         {
             if (Library.Count != 0 && _playerState != PlayerState.Playing)
                 return true;
@@ -478,7 +513,7 @@ namespace MusicPlayer.ViewModel
             return false;
         }
 
-
+        // реалізація INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

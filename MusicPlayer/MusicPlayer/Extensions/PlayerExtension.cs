@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace MusicPlayer
-{
+{ // клас для розширення стандартних можливестей MediaPlayer
     public static class PlayerExtension
-    {
+    { // 4 методи для отримання значення повної довжини та теперішньої довжини відтворення
         public static string GetSongPositionString(this MediaPlayer player)
         {
             if (player.NaturalDuration.HasTimeSpan)
@@ -33,7 +33,7 @@ namespace MusicPlayer
         {
             return Math.Round(player.Position.TotalSeconds, 2);
         }
-
+        // метод почати заново програвання
         public static void Repeat(this MediaPlayer player)
         {
             player.Stop();
