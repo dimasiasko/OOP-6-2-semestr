@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Завдання_1
 {
@@ -6,11 +9,45 @@ namespace Завдання_1
     {
         static void Main(string[] args)
         {
-            while (true)
+
+            
+            try
             {
+
+            }
+            catch (Exception e)
+            { 
+                Console.WriteLine(e.Message);
+            }
+            
+        }
+    }
+    public class Saver
+    {
+        private Saver() { }
+       
+        public static Saver Instance { get; } = new Saver();
+
+        
+        private static StreamWriter sw = new StreamWriter(Environment.CurrentDirectory);
+        private static StreamReader sr = new StreamReader(Environment.CurrentDirectory);
+
+        
+        private static readonly List<int[,]> matrices = new List<int[,]>();
+        public List<int[,]> Matrices => matrices;
+
+
+        public void Save()
+        {
+            using (sw)
+            {
+                string result;
                 try
                 {
-
+                    for (int i = 0; i < Matrices.Count; i++)
+                    {
+                        sw.WriteLine(Matrices[i]);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -19,7 +56,6 @@ namespace Завдання_1
             }
         }
     }
-
     class Matrix
     {
         private int _rows;

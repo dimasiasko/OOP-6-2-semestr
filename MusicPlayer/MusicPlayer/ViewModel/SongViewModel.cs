@@ -39,7 +39,7 @@ namespace MusicPlayer.ViewModel
         // створення публічних властивостей для їх прив'язки на основі приватних полів
         public ObservableCollection<Song> Library
         {
-            get { return _library; }
+            get => _library;
             set
             {
                 if (Equals(value, _library))
@@ -52,7 +52,7 @@ namespace MusicPlayer.ViewModel
 
         public Song SelectedSong
         {
-            get { return _selectedSong; }
+            get => _selectedSong;
             set
             {
                 if (Equals(value, _selectedSong))
@@ -65,7 +65,7 @@ namespace MusicPlayer.ViewModel
 
         public double NowPlayingPosition
         {
-            get { return _nowPlayingPosition; }
+            get => _nowPlayingPosition;
             set
             {
                 if (Equals(value, _nowPlayingPosition))
@@ -78,7 +78,7 @@ namespace MusicPlayer.ViewModel
 
         public double SelectedSongLength
         {
-            get { return _selectedSongLength; }
+            get => _selectedSongLength;
             set
             {
                 if (Equals(value, _selectedSongLength))
@@ -91,7 +91,7 @@ namespace MusicPlayer.ViewModel
 
         public float Volume
         {
-            get { return _volume; }
+            get => _volume;
             set
             {
                 if (Equals(value, _volume))
@@ -104,7 +104,7 @@ namespace MusicPlayer.ViewModel
 
         public PackIconKind IconKindButton
         {
-            get { return _iconKindButton; }
+            get => _iconKindButton;
             set
             {
                 if (Equals(value, _iconKindButton))
@@ -117,7 +117,7 @@ namespace MusicPlayer.ViewModel
 
         public string NowPlayingPositionString
         {
-            get { return _nowPlayingPositionString; }
+            get => _nowPlayingPositionString;
             set
             {
                 if (Equals(value, _nowPlayingPositionString))
@@ -127,9 +127,10 @@ namespace MusicPlayer.ViewModel
                 OnPropertyChanged(nameof(NowPlayingPositionString));
             }
         }
+
         public string SelectedSongLengthString
         {
-            get { return _selectedSongLengthString; }
+            get => _selectedSongLengthString;
             set
             {
                 if (Equals(value, _selectedSongLengthString))
@@ -142,7 +143,7 @@ namespace MusicPlayer.ViewModel
 
         public bool IsNextRandom
         {
-            get { return _isnextrandom; }
+            get => _isnextrandom;
             set
             {
                 if (Equals(value, _isnextrandom))
@@ -155,7 +156,7 @@ namespace MusicPlayer.ViewModel
 
         public bool IsRepeat
         {
-            get { return _isRepeat; }
+            get => _isRepeat;
             set
             {
                 if (Equals(value, _isRepeat))
@@ -166,7 +167,18 @@ namespace MusicPlayer.ViewModel
             }
         }
 
-       
+        public bool RepeatOrPrevious
+        {
+            get
+            {
+                if (NowPlayingPosition >= 2)
+                    return true;
+
+                return false;
+            }
+        }
+
+        public string SavedFormatFile => ".songlibrary";
 
         // створення властивостей типу ICommand
         public ICommand ShutdownCurrentCommand { get; set; }
@@ -188,7 +200,24 @@ namespace MusicPlayer.ViewModel
         }
 
         private PlayerState _playerState;
+        public enum FormatFile
+        {
+            Unknown,
+            MP3,
+            WAV,
+            WMA,
+            OGG
+        }
 
+        private readonly Dictionary<string, FormatFile> _formatFiles = new Dictionary<string, FormatFile>
+        {
+            {"mp3", FormatFile.MP3},
+            {"wav", FormatFile.WAV},
+            {"wma", FormatFile.WMA},
+            {"ogg", FormatFile.OGG}
+        };
+        public FormatFile GetFormatFile(string extension) =>
+            _formatFiles.TryGetValue(extension.Trim('.').ToLower(), out FormatFile category) ? category : FormatFile.Unknown;
         private void ConstructCommands() // метод для конструювання команд, прив'язки до методів
         { // UpCast приведення до інтерфейсу ICommand
             ShutdownCurrentCommand = new SongCommand(ShutdownCurrent, CanShutdownCurrent);
@@ -225,7 +254,7 @@ namespace MusicPlayer.ViewModel
 
         private void SearchLibrary() // пошук при запуску програми збереженого плейлисту
         {
-            string[] libraryPath = Directory.GetFiles(Environment.CurrentDirectory, "*.songlibrary");
+            string[] libraryPath = Directory.GetFiles(Environment.CurrentDirectory, $"*{SavedFormatFile}");
             
             if (libraryPath.Length > 0)
                 Library = new PathesLoader().LoadPathes(libraryPath[0]);
@@ -237,26 +266,6 @@ namespace MusicPlayer.ViewModel
         private void ShutdownCurrent(object obj) => Application.Current.Shutdown();
         private bool CanShutdownCurrent(object arg) => true;
 
-        public enum FormatFile
-        {
-            Unknown,
-            MP3,
-            WAV,
-            WMA,
-            OGG
-        }
-
-        private readonly Dictionary<string, FormatFile> _formatFiles = new Dictionary<string, FormatFile>
-        {
-            {"mp3", FormatFile.MP3},
-            {"wav", FormatFile.WAV},
-            {"wma", FormatFile.WMA},
-            {"ogg", FormatFile.OGG}
-        };
-        public FormatFile GetFormatFile(string extension) => 
-            _formatFiles.TryGetValue(extension.Trim('.').ToLower(), out FormatFile category) ? category : FormatFile.Unknown;
-
-
 
         // метод вибору файлів при натисканні на кнопку вибору файлу
         private void ChooseSong(object obj)
@@ -265,7 +274,7 @@ namespace MusicPlayer.ViewModel
 
             // фільтр та початкова директорія вибору
             openFileDialog.InitialDirectory = "c:\\"; 
-            openFileDialog.Filter = "All Supported Audio (*.mp3..) | *.mp3; *.wav; *.wma; *.ogg;  | All files (*.*) | *.*";                  
+            openFileDialog.Filter = $"All Supported Audio (*.mp3..) | *{FormatFile.MP3}; *{FormatFile.WAV}; *{FormatFile.WMA}; *{FormatFile.OGG};  | All files (*.*) | *.*";                  
 
             openFileDialog.Title = "Choose songs for play"; 
             
@@ -459,7 +468,7 @@ namespace MusicPlayer.ViewModel
         // відтворення попереднього файлу (прив'язка до кнопки Play Previous)
         private void PlayPrevious(object obj)
         {
-            if (NowPlayingPosition >= 2)
+            if (RepeatOrPrevious)
                 player.Repeat(); // якщо файл відтворюється більше 2 секунд - на початок
             else
                 SelectedSong = Library.SelectPrevious(SelectedSong);

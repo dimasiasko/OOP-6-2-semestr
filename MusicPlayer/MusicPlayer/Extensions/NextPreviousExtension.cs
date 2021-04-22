@@ -10,30 +10,42 @@ namespace MusicPlayer
 { // клас який розширює стандартні можливості ObservableCollection<>
     public static class NextPreviousExtension
     { // метод вибору наступного елементу в колекції
+
+        public static int FirstItem = 0;
         public static Song SelectNext<Song>(this ObservableCollection<Song> library, Song selected)
         {
+
+            int lastSelectedItem = library.Count - 1;
             int selectedNow = library.IndexOf(selected);
+            int selectNext = selectedNow + 1;
+            
 
-            if (selectedNow < library.Count - 1) // якщо наступного немає - вибір першого
-                return library[selectedNow + 1];
+            if (selectedNow < lastSelectedItem) // якщо наступного немає - вибір першого
+                return library[selectNext];
 
-            return library[0];
+            return library[FirstItem];
         }
         // метод вибору попереднього елементу в колекції
         public static Song SelectPrevious<Song>(this ObservableCollection<Song> library, Song selected)
         {
             int selectedNow = library.IndexOf(selected);
+            int selectPrevious = selectedNow - 1;
+            int lastSelectedItem = library.Count - 1;
 
-            if (selectedNow > 0) // якщо попереднього немає - вибір останнього
-                return library[selectedNow - 1];
+            if (selectedNow > FirstItem) // якщо попереднього немає - вибір останнього
+                return library[selectPrevious];
 
-            return library[library.Count - 1];
+            return library[lastSelectedItem];
         }
         // метод перемішування колекції (повернення випадково вибраного елемента)
         public static Song RandomSongNext<Song>(this ObservableCollection<Song> library)
         {
+            int lastSelectedItem = library.Count - 1;
             Random random = new Random();
-            return library[random.Next(0, library.Count - 1)];
+
+            return library[random.Next(FirstItem, lastSelectedItem)];
+            
+           
         }
     }
 }
